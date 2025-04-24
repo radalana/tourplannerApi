@@ -14,7 +14,7 @@ public class TourController {
         this.service = service;
     }
 
-    @GetMapping("/tours")
+    @GetMapping
     public Iterable<Tour> getTours() {
         return service.getAllTours();
     }
