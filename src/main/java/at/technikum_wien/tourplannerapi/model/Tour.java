@@ -2,23 +2,18 @@ package at.technikum_wien.tourplannerapi.model;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Duration;
+import java.util.List;
 
-//@Entity
-//@Table(name = "tours")
+@Entity
+@Table(name = "tours")
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
 public class Tour {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -26,10 +21,17 @@ public class Tour {
     private Long id;
     private String tourName;
     private String description;
-    private String from;
-    private String to;
-    private String transportType;
+    @Column(name = "from_location")
+    private String fromLocation;
+    @Column(name = "to_location")
+    private String toLocation;
     private double distance;
-    private Duration duration;
-    private String routeInfo;
+    private double estimatedTime;
+    private String transportType;
+    // private String imagePath; --later for map
+
+    //links a tour to its logs -> bi-directional relationship
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TourLog> tourLogs;
+
 }
