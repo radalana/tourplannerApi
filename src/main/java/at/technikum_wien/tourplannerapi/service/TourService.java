@@ -13,4 +13,16 @@ public class TourService {
     public Iterable<Tour> getAllTours() {
         return this.repository.findAll();
     }
+
+    public Tour getTourById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public Tour saveTour(Tour tour) {
+        return repository.save(tour);
+    }
+
+    public void deleteTour(Long id) {
+        repository.deleteById(id);
+    }
 }

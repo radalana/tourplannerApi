@@ -22,8 +22,11 @@ public class Tour {
     private Long id;
     private String tourName;
     private String description;
-    private String from;
-    private String to;
+    private String fromLocation;
+    private String toLocation;
+    private double distance;
+    private double estimatedTime;
     private String transportType;
+    // private String imagePath; --later for map
 
 }
