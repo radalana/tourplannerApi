@@ -59,6 +59,7 @@
     </dependencies>
 
     <build>
+        <finalName>tourplannerApi</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -76,6 +77,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>at.technikum_wien.tourplannerapi.TourplannerApiApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

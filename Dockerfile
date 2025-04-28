@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy the built jar file into the container (build with mvn package)
-COPY target/tourplannerApi-*.jar app.jar
+COPY target/tourplannerApi.jar app.jar
 
 # Expose the port Spring Boot will run on
 EXPOSE 8080
