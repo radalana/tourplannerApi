@@ -2,9 +2,11 @@ package at.technikum_wien.tourplannerapi.service;
 
 import at.technikum_wien.tourplannerapi.model.Tour;
 import at.technikum_wien.tourplannerapi.repository.TourRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class TourService {
     @Autowired
@@ -19,6 +21,7 @@ public class TourService {
     }
 
     public Tour saveTour(Tour tour) {
+        log.info("Saving tour: {}", tour);
         return repository.save(tour);
     }
 

@@ -2,6 +2,7 @@ package at.technikum_wien.tourplannerapi.model;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,8 +23,11 @@ public class Tour {
     private String tourName;
     private String description;
     @Column(name = "from_location")
+    @JsonProperty("from")
     private String fromLocation;
+
     @Column(name = "to_location")
+    @JsonProperty("to")
     private String toLocation;
     private double distance;
     private double estimatedTime;

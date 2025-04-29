@@ -2,12 +2,14 @@ package at.technikum_wien.tourplannerapi.rest;
 
 import at.technikum_wien.tourplannerapi.model.Tour;
 import at.technikum_wien.tourplannerapi.service.TourService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
+import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/tours")
+@Slf4j
 public class TourController {
     private final TourService service;
     public TourController(TourService service) {
@@ -25,8 +27,11 @@ public class TourController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Tour createTour(@RequestBody Tour tour) {
-        return service.saveTour(tour);
+        Tour createdTour = service.saveTour(tour);
+        log.info("Returning response: {}", createdTour);
+        return createdTour;
     }
 
     @PutMapping("/{id}")
