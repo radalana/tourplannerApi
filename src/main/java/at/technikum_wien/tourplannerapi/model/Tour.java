@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import jakarta.persistence.Transient;
 import java.util.List;
 
 @Entity
@@ -33,6 +34,11 @@ public class Tour {
     private double estimatedTime;
     private String transportType;
     // private String imagePath; --later for map
+
+    @Transient
+    private int popularity;
+    @Transient
+    private double childFriendliness;
 
     //links a tour to its logs -> bi-directional relationship
     @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)

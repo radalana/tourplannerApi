@@ -17,7 +17,7 @@ public class TourLog {
 
     private LocalDateTime dateTime;
     private String comment;
-    private String difficulty;
+    private double difficulty;
     private double totalDistance;
     private double totalTime;
     private int rating;
