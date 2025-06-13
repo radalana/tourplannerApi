@@ -43,5 +43,19 @@ public class Tour {
     //links a tour to its logs -> bi-directional relationship
     @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TourLog> tourLogs;
+    //till there are no dto
+    public Tour(String tourName, String description, String fromLocation, String toLocation,
+                double distance, double estimatedTime, String transportType) {
+        this.tourName = tourName;
+        this.description = description;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.distance = distance;
+        this.estimatedTime = estimatedTime;
+        this.transportType = transportType;
+    }
 
+    public Tour() {
+
+    }
 }

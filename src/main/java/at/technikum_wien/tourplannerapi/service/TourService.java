@@ -18,6 +18,7 @@ public class TourService {
 
     public Iterable<Tour> getAllTours() {
         Iterable<Tour> tours = repository.findAll();
+        //calculated childfriendly and popularity
         tours.forEach(this::enrichWithComputedAttributes);
         return tours;
     }
