@@ -45,6 +45,7 @@ public class TourController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTour(@PathVariable Long id) {
         service.deleteTour(id);
     }
