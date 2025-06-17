@@ -1,5 +1,7 @@
 package at.technikum_wien.tourplannerapi.rest;
 
+import at.technikum_wien.tourplannerapi.dto.TourDTO;
+import at.technikum_wien.tourplannerapi.dto.TourUpdateDTO;
 import at.technikum_wien.tourplannerapi.model.Tour;
 import at.technikum_wien.tourplannerapi.service.TourService;
 import org.springframework.http.HttpStatus;
@@ -35,9 +37,9 @@ public class TourController {
     }
 
     @PutMapping("/{id}")
-    public Tour updateTour(@PathVariable Long id, @RequestBody Tour tour) {
-        tour.setId(id);
-        return service.saveTour(tour);
+    @ResponseStatus(HttpStatus.OK)
+    public Tour updateTour(@PathVariable Long id, @RequestBody TourUpdateDTO tourData) {
+        return service.updateTour(id, tourData);
     }
 
     @DeleteMapping("/{id}")
