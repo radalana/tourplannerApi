@@ -23,13 +23,13 @@ public class Tour {
     private Long id;
     private String tourName;
     private String description;
-    @Column(name = "from_location")
 
+    @Column(name = "from_location")
     private String fromLocation;
 
     @Column(name = "to_location")
-
     private String toLocation;
+
     private double distance;
     private double estimatedTime;
     private String transportType;
