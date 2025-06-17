@@ -38,7 +38,7 @@ public class TourController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Tour updateTour(@PathVariable Long id, @RequestBody TourUpdateDTO tourData) {
+    public TourDTO updateTour(@PathVariable Long id, @RequestBody TourUpdateDTO tourData) {
         return service.updateTour(id, tourData);
     }
 
