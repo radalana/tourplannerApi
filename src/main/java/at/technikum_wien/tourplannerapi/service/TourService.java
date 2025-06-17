@@ -12,6 +12,7 @@ import org.springframework.boot.context.config.ConfigDataResourceNotFoundExcepti
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -58,10 +59,10 @@ public class TourService {
         repository.deleteById(id);
     }
 
-    public List<Tour> searchToursByText(String searchText) {
+    public List<TourDTO> searchToursByText(String searchText) {
     List<Tour> matchingTours = repository.searchTours(searchText);
     matchingTours.forEach(this::enrichWithComputedAttributes);
-    return matchingTours;
+    return matchingTours.stream().map(tourMapper::map).collect(Collectors.toList());
 }
     private void enrichWithComputedAttributes(Tour tour) {
         int popularity = tourLogService.getLogCountForTour(tour);

@@ -2,8 +2,10 @@ package at.technikum_wien.tourplannerapi.rest;
 
 import at.technikum_wien.tourplannerapi.dto.TourDTO;
 import at.technikum_wien.tourplannerapi.dto.TourUpdateDTO;
+import at.technikum_wien.tourplannerapi.mapper.TourMapper;
 import at.technikum_wien.tourplannerapi.model.Tour;
 import at.technikum_wien.tourplannerapi.service.TourService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
@@ -48,5 +50,11 @@ public class TourController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTour(@PathVariable Long id) {
         service.deleteTour(id);
+    }
+
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    public Iterable<TourDTO> searchTours(@RequestParam String query) {
+        return service.searchToursByText(query);
     }
 }
