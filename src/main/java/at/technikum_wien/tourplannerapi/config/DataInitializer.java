@@ -12,6 +12,7 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner seedDatabase(TourRepository tourRepository) {
         return args -> {
+            if (tourRepository.count() == 0) {
             List<Tour> initialTours = List.of(
                     new Tour("Wien Stadttour", "Rundfahrt durch Wien", "Stephansplatz", "Schönbrunn", 5.2, 1.5, "WALK"),
                     new Tour("Alpenfahrt", "Alpen-Tour mit Ausblick", "Innsbruck", "Salzburg", 350, 4.0, "CAR"),
@@ -24,6 +25,9 @@ public class DataInitializer {
             tourRepository.saveAll(initialTours);
 
             System.out.println("✅ Seeded 7 initial tours.");
+            } else {
+                System.out.println("⚠️ Database already contains tours-skipping seeding.");
+            }
         };
     }
 }
