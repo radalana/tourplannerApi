@@ -1,5 +1,6 @@
 package at.technikum_wien.tourplannerapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +18,9 @@ public class TourLog {
 
     private LocalDate date;
     private String comment;
-    private double difficulty;
+    private int difficulty;
     private double totalDistance;
-    private double totalTime;
+    private double totalDuration;
     private int rating;
 
     @ManyToOne
