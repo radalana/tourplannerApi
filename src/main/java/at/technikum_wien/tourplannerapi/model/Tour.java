@@ -2,6 +2,7 @@ package at.technikum_wien.tourplannerapi.model;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -42,6 +43,7 @@ public class Tour {
 
     //links a tour to its logs -> bi-directional relationship
     @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<TourLog> tourLogs;
     //till there are no dto
     public Tour(String tourName, String description, String fromLocation, String toLocation,

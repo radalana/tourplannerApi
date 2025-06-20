@@ -24,6 +24,7 @@ public class TourLog {
 
     @ManyToOne
     @JoinColumn(name = "tour_id", nullable = false)
+    @JsonBackReference
     //.....json ignore https://www.baeldung.com/java-jsonignore-vs-transient
     private Tour tour;
 }
