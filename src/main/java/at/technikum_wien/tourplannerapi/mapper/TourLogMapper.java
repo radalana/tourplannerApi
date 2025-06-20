@@ -14,9 +14,9 @@ import org.mapstruct.*;
 )
 public abstract class TourLogMapper {
     //public abstract void update(TourUpdateDTO dto, @MappingTarget Tour model);
-    @Mapping(source="date", target="dateTime", dateFormat = "dd-MM-yyyy")
+    @Mapping(source="date", target="date", dateFormat = "dd-MM-yyyy")
     public abstract TourLogDTO map(TourLog model);
 
-    @Mapping(source="dateTime", target="date", dateFormat = "dd-MM-yyyy")
+    @Mapping(source="date", target="date", dateFormat = "dd-MM-yyyy")
     public abstract TourLog map(TourLogDTO data);
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TourLogDTO {
     private Long id;
-    private String dateTime;
+    private String date;
     private String comment;
     private int difficulty;
     private double totalDistance;
