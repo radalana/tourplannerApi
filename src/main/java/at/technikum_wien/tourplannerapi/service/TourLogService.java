@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TourLogService {
@@ -22,8 +23,10 @@ public class TourLogService {
     @Autowired
     private TourRepository tourRepository;
 
-    public List<TourLog> getLogsForTour(Long tourId) {
-        return tourLogRepository.findByTourId(tourId);
+    public List<TourLogDTO> fetchLogsByTourId(Long tourId) {
+        return tourLogRepository.findByTourId(tourId).stream()
+                .map(tourLogMapper::map)
+                .collect(Collectors.toList());
     }
 
     public Optional<TourLog> getLogById(Long id) {

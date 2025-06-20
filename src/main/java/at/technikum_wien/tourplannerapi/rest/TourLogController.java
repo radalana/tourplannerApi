@@ -26,16 +26,13 @@ public class TourLogController {
         this.tourLogService = tourLogService;
     }
 
-    @GetMapping("/tour/{tourId}")
-
-    public List<TourLog> getLogsForTour(@PathVariable Long tourId) {
-        return tourLogService.getLogsForTour(tourId);
+    @GetMapping("/{tourId}/logs")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TourLogDTO> fetchLogsByTourId(@PathVariable Long tourId) {
+        log.debug("Received GET for tour with id {} ", tourId);
+        return tourLogService.fetchLogsByTourId(tourId);
     }
 
-    @GetMapping("/{tourid}/logs")
-    public TourLog getTourLog(@PathVariable Long id) {
-        return tourLogService.getLogById(id).orElse(null);
-    }
 
     @PostMapping("/{tourId}/logs")
     @ResponseStatus(HttpStatus.CREATED)
