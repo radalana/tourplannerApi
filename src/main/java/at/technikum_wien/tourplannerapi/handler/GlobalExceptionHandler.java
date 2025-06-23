@@ -1,5 +1,6 @@
 package at.technikum_wien.tourplannerapi.handler;
 
+import at.technikum_wien.tourplannerapi.exception.BadRequestException;
 import at.technikum_wien.tourplannerapi.exception.ResourceNotFoundExeption;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,5 +13,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ResourceNotFoundExeption.class)
     public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundExeption ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<String> handleBadRequestException(BadRequestException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }
