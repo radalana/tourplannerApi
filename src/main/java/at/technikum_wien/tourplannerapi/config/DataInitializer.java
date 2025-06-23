@@ -28,6 +28,9 @@ public class DataInitializer {
                 tourRepository.saveAll(initialTours);
 
                 for (Tour tour : initialTours) {
+                    if (tour.getTourName().equals("Tirol Expedition")) {
+                        continue; // пропустить добавление логов для этого тура
+                    }
                     List<TourLog> logs = List.of(
                             createLog(tour, "Sehr schöne Tour", 2, tour.getDistance(), tour.getEstimatedTime(), 4),
                             createLog(tour, "Etwas anstrengend, aber lohnend", 3, tour.getDistance(), tour.getEstimatedTime(), 5),
