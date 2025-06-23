@@ -2,6 +2,7 @@ package at.technikum_wien.tourplannerapi.mapper;
 
 import at.technikum_wien.tourplannerapi.dto.TourDTO;
 import at.technikum_wien.tourplannerapi.dto.TourLogDTO;
+import at.technikum_wien.tourplannerapi.dto.TourLogUpdateDTO;
 import at.technikum_wien.tourplannerapi.dto.TourUpdateDTO;
 import at.technikum_wien.tourplannerapi.model.Tour;
 import at.technikum_wien.tourplannerapi.model.TourLog;
@@ -19,4 +20,7 @@ public abstract class TourLogMapper {
 
     @Mapping(source="date", target="date", dateFormat = "dd-MM-yyyy")
     public abstract TourLog map(TourLogDTO data);
+
+    @Mapping(source="date", target="date", dateFormat = "dd-MM-yyyy")
+    public abstract void update(TourLogUpdateDTO data, @MappingTarget TourLog model);
 }

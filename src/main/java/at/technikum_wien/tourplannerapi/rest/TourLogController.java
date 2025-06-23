@@ -1,17 +1,14 @@
 package at.technikum_wien.tourplannerapi.rest;
 
 import at.technikum_wien.tourplannerapi.dto.TourLogDTO;
-import at.technikum_wien.tourplannerapi.mapper.TourLogMapper;
-import at.technikum_wien.tourplannerapi.model.TourLog;
+import at.technikum_wien.tourplannerapi.dto.TourLogUpdateDTO;
 import at.technikum_wien.tourplannerapi.service.TourLogService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
@@ -39,6 +36,14 @@ public class TourLogController {
     public TourLogDTO createTourLog(@RequestBody TourLogDTO data, @PathVariable Long tourId, HttpServletRequest request) {
         log.debug("Received POST {} with body: {}", request.getRequestURI(), data);
         return tourLogService.saveLog(data, tourId);
+    }
+
+    @PutMapping("/{tourId}/logs/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public TourLogDTO updateTourLog(@PathVariable Long tourId, @PathVariable Long id, @RequestBody TourLogUpdateDTO data) throws BadRequestException {
+            TourLogDTO updatedLog = tourLogService.updateTourLog(tourId, id, data);
+            log.info("Updated tour log: {}", updatedLog);
+            return updatedLog;
     }
 
 
