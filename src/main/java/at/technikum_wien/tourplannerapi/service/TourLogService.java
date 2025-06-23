@@ -56,7 +56,11 @@ public class TourLogService {
         return tourLogMapper.map(log);
     }
 
-    public void deleteLog(Long id) {
+    public void deleteLog(Long id, Long tourId) throws BadRequestException {
+        TourLog log = tourLogRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExeption("Tour log with id: " + id + " is not found"));
+        if (!log.getTour().getId().equals(tourId)) {
+            throw new BadRequestException("Log with id: " + id + " does not belong to tour with id" + tourId);
+        }
         tourLogRepository.deleteById(id);
     }
     //for popularity

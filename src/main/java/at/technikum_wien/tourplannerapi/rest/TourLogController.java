@@ -46,6 +46,12 @@ public class TourLogController {
             return updatedLog;
     }
 
+    @DeleteMapping("/{tourId}/logs/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTourLog(@PathVariable Long tourId, @PathVariable Long id) throws BadRequestException {
+        log.debug("Received DELETE for tour with id {} ", id);
+        tourLogService.deleteLog(id, tourId);
+    }
 
     /*
     @DeleteMapping("/{id}")
