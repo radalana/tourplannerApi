@@ -15,19 +15,19 @@ public class RouteService {
     private String apiKey;
 
     private static final String GEOCODE_URL = "https://api.openrouteservice.org/geocode/search";
-    private static final String DIRECTIONS_URL = "https://api.openrouteservice.org/v2/directions/driving-car";
+    private static final String DIRECTIONS_URL = "https://api.openrouteservice.org/v2/directions/";
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public JSONObject fetchRoute(String from, String to) {
+    public JSONObject fetchRoute(String from, String to, String transport) {
         double[] fromCoords = geocodeLocation(from);
         double[] toCoords = geocodeLocation(to);
 
         if (fromCoords == null || toCoords == null) {
             throw new RuntimeException("Failed to geocode one or both locations.");
         }
-
-        String routeUrl = UriComponentsBuilder.fromHttpUrl(DIRECTIONS_URL)
+        String url = DIRECTIONS_URL + transport;
+        String routeUrl = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("api_key", apiKey)
                 .queryParam("start", fromCoords[1] + "," + fromCoords[0])
                 .queryParam("end", toCoords[1] + "," + toCoords[0])

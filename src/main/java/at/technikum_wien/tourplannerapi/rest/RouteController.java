@@ -14,9 +14,9 @@ public class RouteController {
     private RouteService routeService;
 
     @GetMapping("/route")
-    public ResponseEntity<String> getRoute(@RequestParam String from, @RequestParam String to) {
+    public ResponseEntity<String> getRoute(@RequestParam String from, @RequestParam String to, @RequestParam String transport) {
         try {
-            JSONObject route = routeService.fetchRoute(from, to);
+            JSONObject route = routeService.fetchRoute(from, to, transport);
             return ResponseEntity.ok(route.toString());
         } catch (Exception e) {
             return ResponseEntity.status(500).body("{\"error\": \"" + e.getMessage() + "\"}");
