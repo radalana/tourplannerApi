@@ -30,24 +30,24 @@ public class ReportService {
             PdfWriter.getInstance(document, out);
             document.open();
 
-            // Title
+            //title
             Paragraph title = new Paragraph("Tour Summary Report", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
             document.add(new Paragraph(" "));
 
-            // Table setup
+            //table
             PdfPTable table = new PdfPTable(4);
             table.setWidthPercentage(100);
             table.setWidths(new int[]{4, 2, 2, 2});
 
-            // Add headers
+            // headers
             addTableHeader(table, "Tour Name");
             addTableHeader(table, "Avg. Distance");
             addTableHeader(table, "Avg. Duration");
             addTableHeader(table, "Avg. Rating");
 
-            // Add rows
+            // rows
             for (Tour tour : tours) {
                 List<TourLog> logs = tourLogRepository.findByTourId(tour.getId());
 
@@ -83,13 +83,13 @@ public class ReportService {
             PdfWriter.getInstance(document, out);
             document.open();
 
-            // Title
+            //title
             Paragraph title = new Paragraph("Tour Report", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
             document.add(new Paragraph(" "));
 
-            // Tour Info
+            // tour-info
             Font infoFont = FontFactory.getFont(FontFactory.HELVETICA, 12);
             document.add(new Paragraph("Name: " + tour.getTourName(), infoFont));
             document.add(new Paragraph("Description: " + tour.getDescription(), infoFont));
@@ -102,13 +102,14 @@ public class ReportService {
             document.add(new Paragraph("Child Friendliness: " + String.format("%.2f", tour.getChildFriendliness()), infoFont));
             document.add(new Paragraph(" "));
 
-            // Logs Header
+            //logs header
             Paragraph logsTitle = new Paragraph("Tour Logs", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16));
+            logsTitle.setAlignment(Element.ALIGN_CENTER);
             logsTitle.setSpacingBefore(10f);
             document.add(logsTitle);
             document.add(new Paragraph(" "));
 
-            // Logs Table
+            // logs table
             PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100);
             table.setWidths(new int[]{2, 4, 2, 2, 2});
