@@ -80,7 +80,15 @@ public class TourLogService {
         return Math.max(0.0, Math.min(10.0, score)); //between 0 and 10
     }
     //full text search
+    /*
     public List<TourLog> searchLogsByComment(String searchText) {
         return tourLogRepository.searchLogsByComment(searchText);
+    }
+     */
+
+    public List<TourLogDTO> searchLogsByText(Long tourId, String text) {
+        Tour tour = tourRepository.findById(tourId).orElseThrow(() -> new ResourceNotFoundExeption("Tour with id: " + tourId + " is not found"));
+        List<TourLog> logs = tourLogRepository.searchLogsByComment(tourId, text);
+        return logs.stream().map(tourLogMapper::map).collect(Collectors.toList());
     }
 }

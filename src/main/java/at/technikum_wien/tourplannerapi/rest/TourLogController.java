@@ -53,10 +53,10 @@ public class TourLogController {
         tourLogService.deleteLog(id, tourId);
     }
 
-    /*
-    @DeleteMapping("/{id}")
-    public void deleteTourLog(@PathVariable Long id) {
-        tourLogService.deleteLog(id);
+    @GetMapping("{tourId}/logs/search")
+    @ResponseStatus(HttpStatus.OK)
+    public Iterable<TourLogDTO> searchLogs(@PathVariable Long tourId, @RequestParam String query) {
+        log.debug("Received GET for logs search with query {}", query);
+        return tourLogService.searchLogsByText(tourId, query);
     }
-     */
 }
