@@ -28,16 +28,11 @@ public class TourService {
 
     public Iterable<Tour> getAllTours() {
         Iterable<Tour> tours = repository.findAll();
-        //calculated childfriendly and popularity
-        tours.forEach(this::enrichWithComputedAttributes);
         return tours;
     }
 
     public Tour getTourById(Long id) {
         Tour tour = repository.findById(id).orElse(null);
-        if (tour != null) {
-            enrichWithComputedAttributes(tour);
-        }
         return tour;
     }
 
@@ -61,14 +56,7 @@ public class TourService {
 
     public List<TourDTO> searchToursByText(String searchText) {
     List<Tour> matchingTours = repository.searchTours(searchText);
-    matchingTours.forEach(this::enrichWithComputedAttributes);
     return matchingTours.stream().map(tourMapper::map).collect(Collectors.toList());
 }
-    private void enrichWithComputedAttributes(Tour tour) {
-        int popularity = tourLogService.getLogCountForTour(tour);
-        double childFriendliness = tourLogService.calculateChildFriendliness(tour);
 
-        tour.setPopularity(popularity);
-        tour.setChildFriendliness(childFriendliness);
-    }
 }

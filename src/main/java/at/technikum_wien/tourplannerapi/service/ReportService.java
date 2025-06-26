@@ -76,6 +76,13 @@ public class ReportService {
 
         List<TourLog> logs = tourLogRepository.findByTourId(tourId);
 
+        // compute popularity and child-friendliness
+        int popularity = logs.size();
+        double avgDifficulty = logs.stream().mapToInt(TourLog::getDifficulty).average().orElse(0);
+        double avgDuration = logs.stream().mapToDouble(TourLog::getTotalDuration).average().orElse(0);
+        double childFriendliness = (5 - avgDifficulty) + (3 - avgDuration);
+        if (childFriendliness < 0) childFriendliness = 0;
+
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -98,8 +105,8 @@ public class ReportService {
             document.add(new Paragraph("Transport: " + tour.getTransportType(), infoFont));
             document.add(new Paragraph("Distance: " + String.format("%.2f", tour.getDistance()), infoFont));
             document.add(new Paragraph("Estimated Time: " + String.format("%.2f", tour.getEstimatedTime()), infoFont));
-            document.add(new Paragraph("Popularity: " + tour.getPopularity(), infoFont));
-            document.add(new Paragraph("Child Friendliness: " + String.format("%.2f", tour.getChildFriendliness()), infoFont));
+            document.add(new Paragraph("Popularity: " + popularity, infoFont));
+            document.add(new Paragraph("Child Friendliness: " + String.format("%.2f", childFriendliness), infoFont));
             document.add(new Paragraph(" "));
 
             //logs header
@@ -140,6 +147,7 @@ public class ReportService {
     private void addTableHeader(PdfPTable table, String headerText) {
         PdfPCell header = new PdfPCell();
         header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+
         header.setHorizontalAlignment(Element.ALIGN_CENTER);
         header.setPadding(6);
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);

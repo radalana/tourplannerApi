@@ -63,28 +63,6 @@ public class TourLogService {
         }
         tourLogRepository.deleteById(id);
     }
-    //for popularity
-    public int getLogCountForTour(Tour tour) {
-        return tourLogRepository.countTourLogsByTour(tour);
-    }
-    //for child-friendliness
-    public double calculateChildFriendliness(Tour tour) {
-        List<TourLog> logs = tourLogRepository.getAllLogsByTour(tour);
-        if (logs.isEmpty()) return 0.0;
-
-        double avgDifficulty = logs.stream().mapToDouble(TourLog::getDifficulty).average().orElse(0);
-        double avgTime = logs.stream().mapToDouble(TourLog::getTotalDuration).average().orElse(0);
-        double avgDistance = logs.stream().mapToDouble(TourLog::getTotalDistance).average().orElse(0);
-
-        double score = 10.0 - ((avgDifficulty * 2) + (avgTime / 10.0) + (avgDistance / 10.0)) / 3.0;
-        return Math.max(0.0, Math.min(10.0, score)); //between 0 and 10
-    }
-    //full text search
-    /*
-    public List<TourLog> searchLogsByComment(String searchText) {
-        return tourLogRepository.searchLogsByComment(searchText);
-    }
-     */
 
     public List<TourLogDTO> searchLogsByText(Long tourId, String text) {
         Tour tour = tourRepository.findById(tourId).orElseThrow(() -> new ResourceNotFoundExeption("Tour with id: " + tourId + " is not found"));
