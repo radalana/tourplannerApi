@@ -125,7 +125,7 @@ public class ReportService {
                 addTableCell(table, log.getComment());
                 addTableCell(table, String.valueOf(log.getDifficulty()));
                 addTableCell(table, String.format("%.2f", log.getTotalDuration()));
-                addTableCell(table, String.format("%.2f", log.getRating()));
+                addTableCell(table, String.format("%.2f", (double) log.getRating()));
             }
 
             document.add(table);
