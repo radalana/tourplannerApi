@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
@@ -19,7 +18,7 @@ public class TourDTO {
     private double estimatedTime;
     private int popularity;
     private double childFriendliness;
-    //public List<TourLogDTO> tourLogs;
+
     @Override
     public String toString() {
         return "Tour{" +
@@ -31,10 +30,8 @@ public class TourDTO {
                 ", transportType='" + getTransportType() + '\'' +
                 ", distance=" + getDistance() +
                 ", estimatedTime=" + getEstimatedTime() +
-                //", routInfo='" + getRoutInfo() + '\'' +
                 ", popularity=" + getPopularity() +
                 ", childFriendliness=" + getChildFriendliness() +
-                //", logs=" + logs +
                 '}';
     }
 }
