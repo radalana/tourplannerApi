@@ -3,6 +3,7 @@ package at.technikum_wien.tourplannerapi.service;
 import at.technikum_wien.tourplannerapi.dto.TourDTO;
 import at.technikum_wien.tourplannerapi.dto.TourUpdateDTO;
 import at.technikum_wien.tourplannerapi.exception.ResourceNotFoundExeption;
+import at.technikum_wien.tourplannerapi.exception.RouteNotFoundException;
 import at.technikum_wien.tourplannerapi.mapper.TourMapper;
 import at.technikum_wien.tourplannerapi.model.Tour;
 import at.technikum_wien.tourplannerapi.repository.TourRepository;
@@ -40,9 +41,14 @@ public class TourService {
         return tour;
     }
 
-    public TourDTO updateTour(Long id, TourUpdateDTO tourData) throws ResourceNotFoundExeption {
+    public TourDTO updateTour(Long id, TourUpdateDTO tourData) throws ResourceNotFoundExeption, RouteNotFoundException {
         var tour = repository.findById(id).orElseThrow(() -> new ResourceNotFoundExeption("Tour with " + id + " not found"));
-        JSONObject orsResponse = routeService.fetchRoute(tourData.getFromLocation(), tourData.getToLocation(), tourData.getTransportType());
+        JSONObject orsResponse = routeService.fetchRoute(
+                tourData.getFromLocation(),
+                tourData.getToLocation(),
+                tourData.getTransportType()
+        );
+
         JSONObject summary = orsResponse.getJSONArray("features")
                 .getJSONObject(0)
                 .getJSONObject("properties")
@@ -56,7 +62,6 @@ public class TourService {
         tourMapper.update(tourData, tour);
         tour.setDistance(distanceInKm);
         tour.setEstimatedTime(durationInSec);
-
         repository.save(tour);
         return tourMapper.map(tour);
     }

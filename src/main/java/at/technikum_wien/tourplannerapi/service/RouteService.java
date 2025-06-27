@@ -1,9 +1,11 @@
 package at.technikum_wien.tourplannerapi.service;
 
+import at.technikum_wien.tourplannerapi.exception.RouteNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,22 +23,32 @@ public class RouteService {
 
     public JSONObject fetchRoute(String from, String to, String transport) {
         log.info("GEO from = " + from);
+        try {
         double[] fromCoords = geocodeLocation(from);
         double[] toCoords = geocodeLocation(to);
-        log.info("fromCoords: " + fromCoords[1] + ", " + fromCoords[0]);
-        log.info("toCoords: " + toCoords[1] + ", " + toCoords[0]);
         if (fromCoords == null || toCoords == null) {
             throw new RuntimeException("Failed to geocode one or both locations.");
         }
         String url = DIRECTIONS_URL + transport;
-        String routeUrl = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("api_key", apiKey)
-                .queryParam("start", fromCoords[1] + "," + fromCoords[0])
-                .queryParam("end", toCoords[1] + "," + toCoords[0])
-                .toUriString();
 
-        String response = restTemplate.getForObject(routeUrl, String.class);
-        return new JSONObject(response);
+            String routeUrl = UriComponentsBuilder.fromHttpUrl(url)
+                    .queryParam("api_key", apiKey)
+                    .queryParam("start", fromCoords[1] + "," + fromCoords[0])
+                    .queryParam("end", toCoords[1] + "," + toCoords[0])
+                    .toUriString();
+
+            log.info("Requesting route from ORS: " + routeUrl);
+
+            String response = restTemplate.getForObject(routeUrl, String.class);
+            return new JSONObject(response);
+
+        } catch (HttpClientErrorException e) {
+            log.warn("ORS returned error: {}", e.getResponseBodyAsString());
+            throw new RouteNotFoundException("No accessible route found between the entered points.");
+        } catch (Exception e) {
+            log.error("Unexpected error during route request: {}", e.getMessage(), e);
+            throw new RuntimeException("Unexpected route error", e);
+        }
     }
 
     private double[] geocodeLocation(String locationName) {
@@ -48,7 +60,6 @@ public class RouteService {
 
         String response = restTemplate.getForObject(geocodeUrl, String.class);
         JSONObject json = new JSONObject(response);
-        log.info("GEOCODE RAW JSON: " + json.toString(2));
         JSONArray features = json.getJSONArray("features");
         if (features.length() == 0) return null;
 
