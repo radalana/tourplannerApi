@@ -7,14 +7,21 @@ import at.technikum_wien.tourplannerapi.model.Tour;
 import at.technikum_wien.tourplannerapi.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/tours")
 @Slf4j
 public class TourController {
+
+    @Autowired
+    private TourService tourService;
+
+    @Autowired
+    private TourMapper tourMapper;
+
     private final TourService service;
     public TourController(TourService service) {
         this.service = service;
@@ -57,4 +64,11 @@ public class TourController {
     public Iterable<TourDTO> searchTours(@RequestParam String query) {
         return service.searchToursByText(query);
     }
+
+    @PostMapping("/import")
+    public ResponseEntity<TourDTO> importTour(@RequestBody TourDTO tourDTO) {
+        Tour savedTour = tourService.saveTour(tourMapper.map(tourDTO));
+        return ResponseEntity.ok(tourMapper.map(savedTour));
+    }
+
 }

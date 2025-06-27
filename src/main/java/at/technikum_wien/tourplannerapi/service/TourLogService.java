@@ -11,9 +11,6 @@ import at.technikum_wien.tourplannerapi.repository.TourRepository;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,10 +28,6 @@ public class TourLogService {
         return tourLogRepository.findByTourId(tourId).stream()
                 .map(tourLogMapper::map)
                 .collect(Collectors.toList());
-    }
-
-    public Optional<TourLog> getLogById(Long id) {
-        return tourLogRepository.findById(id);
     }
 
     public TourLogDTO saveLog(TourLogDTO data, Long tourId) {

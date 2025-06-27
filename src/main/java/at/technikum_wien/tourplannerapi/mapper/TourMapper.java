@@ -13,5 +13,6 @@ import org.mapstruct.*;
 public abstract class TourMapper {
     public abstract void update(TourUpdateDTO dto, @MappingTarget Tour model);
     public abstract TourDTO map(Tour model);
+    public abstract Tour map(TourDTO dto); //for importing tours from file
 }
 

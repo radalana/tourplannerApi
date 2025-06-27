@@ -3,7 +3,6 @@ package at.technikum_wien.tourplannerapi.model;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,7 +33,6 @@ public class Tour {
     private double distance;
     private double estimatedTime;
     private String transportType;
-    // private String imagePath; --later for map
 
     @Transient
     private int popularity;

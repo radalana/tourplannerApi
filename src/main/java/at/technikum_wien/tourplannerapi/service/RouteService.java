@@ -37,28 +37,6 @@ public class RouteService {
         return new JSONObject(response);
     }
 
-    public String getRouteGeoJson(String from, String to) {
-        double[] fromCoords = geocodeLocation(from);
-        double[] toCoords = geocodeLocation(to);
-
-        if (fromCoords == null || toCoords == null) {
-            throw new RuntimeException("Failed to geocode one or both locations.");
-        }
-
-        String url = "https://api.openrouteservice.org/v2/directions/driving-car/geojson";
-
-        JSONObject requestBody = new JSONObject()
-                .put("coordinates", new JSONArray()
-                        .put(new JSONArray().put(fromCoords[1]).put(fromCoords[0])) // [lng, lat]
-                        .put(new JSONArray().put(toCoords[1]).put(toCoords[0])));
-
-        return restTemplate.postForObject(
-                url + "?api_key=" + apiKey,
-                requestBody.toString(),
-                String.class
-        );
-    }
-
     private double[] geocodeLocation(String locationName) {
         String geocodeUrl = UriComponentsBuilder.fromHttpUrl(GEOCODE_URL)
                 .queryParam("api_key", apiKey)
