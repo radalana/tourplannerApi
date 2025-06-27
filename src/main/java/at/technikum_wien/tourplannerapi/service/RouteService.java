@@ -48,7 +48,7 @@ public class RouteService {
         JSONObject json = new JSONObject(response);
 
         JSONArray features = json.getJSONArray("features");
-        if (features.isEmpty()) return null;
+        if (features.length() == 0) return null;
 
         JSONArray coordinates = features.getJSONObject(0)
                 .getJSONObject("geometry")
