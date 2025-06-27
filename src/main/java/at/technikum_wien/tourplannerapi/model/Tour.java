@@ -31,7 +31,7 @@ public class Tour {
     private String toLocation;
 
     private double distance;
-    private double estimatedTime;
+    private Long estimatedTime;
     private String transportType;
 
     @Transient
@@ -45,7 +45,7 @@ public class Tour {
     private List<TourLog> tourLogs;
     //till there are no dto
     public Tour(String tourName, String description, String fromLocation, String toLocation,
-                double distance, double estimatedTime, String transportType) {
+                double distance, Long estimatedTime, String transportType) {
         this.tourName = tourName;
         this.description = description;
         this.fromLocation = fromLocation;
