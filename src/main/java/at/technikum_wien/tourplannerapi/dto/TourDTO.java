@@ -30,9 +30,9 @@ public class TourDTO {
     @NotBlank
     private String transportType;
 
-    @Positive
+
     private double distance;
-    @Positive
+
     private long estimatedTime;
     private int popularity;
     private double childFriendliness;
