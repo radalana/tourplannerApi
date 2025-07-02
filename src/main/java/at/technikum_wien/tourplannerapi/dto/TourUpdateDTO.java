@@ -22,8 +22,6 @@ public class TourUpdateDTO {
     private String toLocation;
     @NotBlank
     private String transportType;
-    @Positive
     private double distance;
-    @Positive
     private double estimatedTime;
 }
