@@ -1,7 +1,7 @@
 package at.technikum_wien.tourplannerapi.service;
 
-import at.technikum_wien.tourplannerapi.dto.TourLogDTO;
-import at.technikum_wien.tourplannerapi.dto.TourLogUpdateDTO;
+import at.technikum_wien.tourplannerapi.dto.log.TourLogDTO;
+import at.technikum_wien.tourplannerapi.dto.log.TourLogUpdateDTO;
 import at.technikum_wien.tourplannerapi.exception.ResourceNotFoundExeption;
 import at.technikum_wien.tourplannerapi.mapper.TourLogMapper;
 import at.technikum_wien.tourplannerapi.model.Tour;
@@ -12,7 +12,6 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

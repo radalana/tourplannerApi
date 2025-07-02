@@ -1,7 +1,7 @@
 package at.technikum_wien.tourplannerapi.mapper;
 
-import at.technikum_wien.tourplannerapi.dto.TourDTO;
-import at.technikum_wien.tourplannerapi.dto.TourUpdateDTO;
+import at.technikum_wien.tourplannerapi.dto.tour.TourDTO;
+import at.technikum_wien.tourplannerapi.dto.tour.TourUpdateDTO;
 import at.technikum_wien.tourplannerapi.model.Tour;
 import org.mapstruct.*;
 

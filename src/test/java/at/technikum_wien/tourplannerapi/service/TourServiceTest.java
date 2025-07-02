@@ -1,7 +1,7 @@
 package at.technikum_wien.tourplannerapi.service;
 
-import at.technikum_wien.tourplannerapi.dto.TourDTO;
-import at.technikum_wien.tourplannerapi.dto.TourUpdateDTO;
+import at.technikum_wien.tourplannerapi.dto.tour.TourDTO;
+import at.technikum_wien.tourplannerapi.dto.tour.TourUpdateDTO;
 import at.technikum_wien.tourplannerapi.exception.ResourceNotFoundExeption;
 import at.technikum_wien.tourplannerapi.mapper.TourMapper;
 import at.technikum_wien.tourplannerapi.model.Tour;

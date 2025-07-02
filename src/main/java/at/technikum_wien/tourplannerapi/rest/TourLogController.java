@@ -1,7 +1,7 @@
 package at.technikum_wien.tourplannerapi.rest;
 
-import at.technikum_wien.tourplannerapi.dto.TourLogDTO;
-import at.technikum_wien.tourplannerapi.dto.TourLogUpdateDTO;
+import at.technikum_wien.tourplannerapi.dto.log.TourLogDTO;
+import at.technikum_wien.tourplannerapi.dto.log.TourLogUpdateDTO;
 import at.technikum_wien.tourplannerapi.service.TourLogService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
