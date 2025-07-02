@@ -72,7 +72,7 @@ public class ReportServiceTest {
         tour.setToLocation("Linz");
         tour.setTransportType("Bike");
         tour.setDistance(80.0);
-        tour.setEstimatedTime(3.5);
+        tour.setEstimatedTime((long)35);
 
         TourLog log = new TourLog();
         log.setComment("Nice trip!");
