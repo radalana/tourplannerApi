@@ -104,7 +104,7 @@ public class ReportService {
             document.add(new Paragraph("To: " + tour.getToLocation(), infoFont));
             document.add(new Paragraph("Transport: " + tour.getTransportType(), infoFont));
             document.add(new Paragraph("Distance: " + String.format("%.2f", tour.getDistance()), infoFont));
-            document.add(new Paragraph("Estimated Time: " + String.format("%.2f", tour.getEstimatedTime()), infoFont));
+            document.add(new Paragraph("Estimated Time: " + String.format("%2d", tour.getEstimatedTime()) + " seconds", infoFont ));
             document.add(new Paragraph("Popularity: " + popularity, infoFont));
             document.add(new Paragraph("Child Friendliness: " + String.format("%.2f", childFriendliness), infoFont));
             document.add(new Paragraph(" "));
