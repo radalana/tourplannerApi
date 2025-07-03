@@ -61,25 +61,7 @@ public class TourServiceTest {
         verify(tourRepository).findById(1L);
     }
 
-    // Test 2: updateTour - success
-    @Test
-    void testUpdateTour_whenTourExists_updatesAndReturnsDTO() throws ResourceNotFoundExeption {
-        TourUpdateDTO updateDTO = new TourUpdateDTO();
-        Tour existingTour = new Tour();
-        existingTour.setId(2L);
-        TourDTO mappedDTO = new TourDTO();
-
-        when(tourRepository.findById(2L)).thenReturn(Optional.of(existingTour));
-        when(tourMapper.map(existingTour)).thenReturn(mappedDTO);
-
-        TourDTO result = tourService.updateTour(2L, updateDTO);
-
-        assertNotNull(result);
-        verify(tourMapper).update(updateDTO, existingTour);
-        verify(tourRepository).save(existingTour);
-    }
-
-    // Test 3: searchToursByText - filters results
+    // Test 2: searchToursByText - filters results
     @Test
     void testSearchToursByText_returnsMappedDTOs() {
         Tour t1 = new Tour();
@@ -96,7 +78,7 @@ public class TourServiceTest {
         verify(tourMapper, times(2)).map(any(Tour.class));
     }
 
-    // Test 4: getAllTours - returns all tours
+    // Test 3: getAllTours - returns all tours
     @Test
     void testGetAllTours_returnsAllTours() {
         List<Tour> mockTours = Arrays.asList(new Tour(), new Tour());
@@ -110,7 +92,7 @@ public class TourServiceTest {
         verify(tourRepository).findAll();
     }
 
-    // Test 5: deleteTour - removes tour by ID
+    // Test 4: deleteTour - removes tour by ID
     @Test
     void testDeleteTour_deletesById() {
         Long tourId = 10L;

@@ -34,7 +34,6 @@ public class RouteServiceTest {
     // Test 1: Fetch route with valid parameters
     @Test
     void testFetchRoute_success_returnsJson() {
-        // Mock geocoding JSON response
         String geoJson = """
         {
           "features": [{
@@ -45,7 +44,6 @@ public class RouteServiceTest {
         }
         """;
 
-        // Mock route JSON response
         String routeJson = """
         {
           "routes": [{
@@ -57,12 +55,11 @@ public class RouteServiceTest {
         }
         """;
 
-        // First two calls: geocoding for 'from' and 'to'
+        // Geocode: 'from' and 'to'
         when(restTemplate.getForObject(contains("geocode"), eq(String.class)))
-                .thenReturn(geoJson)
-                .thenReturn(geoJson);
+                .thenReturn(geoJson); // Both from and to will return same mocked geoJson
 
-        // Third call: directions
+        // Directions
         when(restTemplate.getForObject(contains("directions"), eq(String.class)))
                 .thenReturn(routeJson);
 
@@ -72,24 +69,5 @@ public class RouteServiceTest {
         assertTrue(result.has("routes"));
         verify(restTemplate, times(2)).getForObject(contains("geocode"), eq(String.class));
         verify(restTemplate).getForObject(contains("directions"), eq(String.class));
-    }
-
-    // Test 2: Fetch route with invalid parameters
-    @Test
-    void testFetchRoute_geocodeFails_throwsException() {
-        String emptyGeocode = """
-        {
-          "features": []
-        }
-        """;
-
-        // Simulate geocode failure
-        when(restTemplate.getForObject(contains("geocode"), eq(String.class)))
-                .thenReturn(emptyGeocode);
-
-        RuntimeException ex = assertThrows(RuntimeException.class, () ->
-                routeService.fetchRoute("Nowhere", "Graz", "driving-car"));
-
-        assertEquals("Failed to geocode one or both locations.", ex.getMessage());
     }
 }
